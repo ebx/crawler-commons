@@ -538,7 +538,7 @@ public class SiteMapParser {
             throw new RuntimeException("Failed to configure XML parser: " + e.toString());
         }
 
-        DelegatorHandler handler = new DelegatorHandler(sitemapUrl, strict);
+        DelegatorHandler handler = createDelegatorHandler(sitemapUrl);
         handler.setStrictNamespace(isStrictNamespace());
         if (isStrictNamespace()) {
             handler.setAcceptedNamespaces(acceptedNamespaces);
@@ -584,6 +584,17 @@ public class SiteMapParser {
         } catch (ParserConfigurationException e) {
             throw new IllegalStateException(e);
         }
+    }
+
+    /**
+     * Create delegator handler
+     *
+     * @param sitemapUrl
+     *            a sitemap {@link java.net.URL}
+     * @return the delegator handler
+     */
+    protected DelegatorHandler createDelegatorHandler(URL sitemapUrl) {
+        return new DelegatorHandler(sitemapUrl, strict);
     }
 
     /**
